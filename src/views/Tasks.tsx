@@ -4,14 +4,29 @@ import type { task } from "../types/data.types";
 export function Tasks() {
   const [taskList, setTaskList] = useState<task[]>();
 
-  function handleGetTasks() {}
+  async function handleGetAllTasks() {
+    const tasks = await window.tasks.getTasks();
+    setTaskList(tasks);
+  }
 
-  function handleAddTask() {}
+  async function handleAddTask(content: string) {
+    const tasks = await window.tasks.addTask(content);
+  }
 
-  function handleRemoveTask() {}
+  async function handleModifyTask(id: number, content: string) {
+    const tasks = await window.tasks.modifyTask(id, content);
+  }
+
+  async function handleCompleteTask(id: number) {
+    const tasks = await window.tasks.completeTask(id);
+  }
+
+  async function handleRemoveTask(id: number) {
+    const tasks = await window.tasks.deleteTask(id);
+  }
 
   useEffect(() => {
-    handleGetTasks();
+    handleGetAllTasks();
   }, []);
 
   return <></>;
