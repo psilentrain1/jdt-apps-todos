@@ -69,6 +69,11 @@ export function modifyTask(id: number, content: string): boolean {
   return false;
 }
 
+/**
+ * Mark task as completed.
+ * @param id The task id.
+ * @returns Success boolean.
+ */
 export function completeTask(id: number): boolean {
   const stmt = db.prepare("UPDATE tasks SET completed = ? WHERE id = ?;");
   const now = new Date().toISOString();
