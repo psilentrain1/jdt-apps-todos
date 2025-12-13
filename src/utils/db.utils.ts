@@ -34,9 +34,12 @@ export function getTasks(): task[] {
  * @returns Success boolean.
  */
 export function addTask(content: string): boolean {
-  const stmt = db.prepare("INSERT INTO tasks (content) VALUES (?);");
+  const stmt = db.prepare(
+    "INSERT INTO tasks (content, modified) VALUES (?, ?);",
+  );
+  const now = new Date().toISOString();
 
-  const result = stmt.run(content);
+  const result = stmt.run(content, now);
 
   if (result.changes > 0) {
     return true;
@@ -52,9 +55,12 @@ export function addTask(content: string): boolean {
  * @returns Success boolean.
  */
 export function modifyTask(id: number, content: string): boolean {
-  const stmt = db.prepare("UPDATE tasks SET content = ? WHERE id = ?;");
+  const stmt = db.prepare(
+    "UPDATE tasks SET content = ?, modified = ? WHERE id = ?;",
+  );
+  const now = new Date().toISOString();
 
-  const result = stmt.run(content, id);
+  const result = stmt.run(content, now, id);
 
   if (result.changes > 0) {
     return true;
