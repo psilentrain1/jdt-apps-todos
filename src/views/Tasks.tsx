@@ -27,7 +27,23 @@ export function Tasks() {
   }
 
   async function handleModifyTask(id: string, content: string) {
-    const tasks = await window.tasks.modifyTask(id, content);
+    const originalList: task[] = taskList;
+    const modified = new Date().toISOString();
+
+    const updatedTasks = taskList.map((task) => {
+      if (task.id === id) {
+        return { ...task, content: content, modified: modified };
+      }
+      return task;
+    });
+
+    setTaskList(updatedTasks);
+
+    try {
+      await window.tasks.modifyTask(id, content, modified);
+    } catch (error) {
+      setTaskList(originalList);
+    }
   }
 
   async function handleCompleteTask(id: string) {
