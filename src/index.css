@@ -1,9 +1,12 @@
 :root {
   --text: white;
+  --text-dim: rgba(255, 255, 255, 0.5);
   --muted: rgba(255, 255, 255, 0.05);
   --muted-hover: rgba(255, 255, 255, 0.5);
 
   --transition: all 0.3s ease;
+
+  --titlebar-height: 25px;
 }
 
 body {
@@ -31,7 +34,7 @@ body {
 
 /* TITLEBAR */
 .titlebar {
-  height: 25px;
+  height: var(--titlebar-height);
   padding: 0 10px;
 }
 
@@ -46,8 +49,8 @@ body {
   background-color: rgba(255, 255, 255, 0);
   color: var(--text);
   border: none;
-  height: 25px;
-  width: 25px;
+  height: var(--titlebar-height);
+  width: var(--titlebar-height);
   transition: var(--transition);
 }
 
@@ -56,6 +59,30 @@ body {
 }
 
 /* TASK LIST */
+.task-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(95vh - var(--titlebar-height));
+  padding: 20px 20px;
+}
+
+.task {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2rem;
+}
+
+.task__name {
+  font-family: "Comic Sans MS", sans-serif;
+  font-size: 3rem;
+}
+
+.task__name::before {
+  content: "";
+}
+
 .add-item {
   display: flex;
   flex-direction: row;

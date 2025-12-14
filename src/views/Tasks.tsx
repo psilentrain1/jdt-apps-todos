@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { MdAdd, MdSend } from "react-icons/md";
+import { MdAdd, MdCheck, MdCreate, MdDelete, MdSend } from "react-icons/md";
 import type { task, newItem } from "../types/data.types";
 
 export function Tasks() {
@@ -9,6 +9,19 @@ export function Tasks() {
     id: "new",
     content: "",
   });
+
+  const sampleTasks: task[] = [
+    {
+      id: "somelonguuid",
+      content: "Do laundry",
+      modified: "2025 12 14 00:00",
+    },
+    {
+      id: "anotherlonguuid",
+      content: "Finish this app",
+      modified: "2025 12 14 01:02",
+    },
+  ];
 
   async function handleGetAllTasks() {
     const tasks = await window.tasks.getTasks();
@@ -106,18 +119,38 @@ export function Tasks() {
 
   return (
     <>
-      <div className="add-item">
-        <span className="add-item-field">
-          <input
-            type="text"
-            className=""
-            value={newItemInput.content}
-            onChange={handleUpdateNewItem}
-          />
-          <button className="ui-button" onClick={handleSendButton}>
-            {newItemInput.id === "new" ? <MdAdd /> : <MdSend />}
-          </button>
-        </span>
+      <div className="task-page">
+        <ul className="task-list">
+          {sampleTasks.map((item) => (
+            <li className="task">
+              <span className="task__name">{item.content}</span>
+              <div className="task__buttons">
+                <button className="ui-button">
+                  <MdCheck />
+                </button>
+                <button className="ui-button">
+                  <MdCreate />
+                </button>
+                <button className="ui-button">
+                  <MdDelete />
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div className="add-item">
+          <span className="add-item-field">
+            <input
+              type="text"
+              className=""
+              value={newItemInput.content}
+              onChange={handleUpdateNewItem}
+            />
+            <button className="ui-button" onClick={handleSendButton}>
+              {newItemInput.id === "new" ? <MdAdd /> : <MdSend />}
+            </button>
+          </span>
+        </div>
       </div>
     </>
   );
