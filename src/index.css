@@ -80,7 +80,7 @@ body {
 }
 
 .task__name::before {
-  content: "";
+  content: "-";
 }
 
 .add-item {
