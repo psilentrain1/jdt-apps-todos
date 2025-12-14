@@ -1,5 +1,5 @@
-import { StartLoggingOptions } from "electron/renderer";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import type { task } from "../types/data.types";
 
 export function Tasks() {
@@ -11,7 +11,12 @@ export function Tasks() {
   }
 
   async function handleAddTask(content: string) {
-    const tasks = await window.tasks.addTask(content);
+    const newTask: task = {
+      id: uuidv4(),
+      content: content,
+      modified: new Date().toISOString(),
+    };
+    const tasks = await window.tasks.addTask(newTask);
   }
 
   async function handleModifyTask(id: string, content: string) {

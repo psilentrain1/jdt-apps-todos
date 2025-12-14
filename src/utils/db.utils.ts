@@ -33,13 +33,12 @@ export function getTasks(): task[] {
  * @param content The string content of the task.
  * @returns Success boolean.
  */
-export function addTask(id: string, content: string): boolean {
+export function addTask(task: task): boolean {
   const stmt = db.prepare(
     "INSERT INTO tasks (id, content, modified) VALUES (?, ?, ?);",
   );
-  const now = new Date().toISOString();
 
-  const result = stmt.run(id, content, now);
+  const result = stmt.run(task.id, task.content, task.modified);
 
   if (result.changes > 0) {
     return true;

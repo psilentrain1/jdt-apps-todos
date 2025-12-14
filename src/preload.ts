@@ -1,5 +1,6 @@
 import { contextBridge, ipcRenderer } from "electron";
 import { App, Tasks } from "./types/bridge.types";
+import { task } from "./types/data.types";
 
 declare global {
   interface Window {
@@ -15,8 +16,7 @@ contextBridge.exposeInMainWorld("app", {
 
 contextBridge.exposeInMainWorld("tasks", {
   getTasks: () => ipcRenderer.invoke("getTasks"),
-  addTask: (id: string, content: string) =>
-    ipcRenderer.invoke("addTask", id, content),
+  addTask: (task: task) => ipcRenderer.invoke("addTask", task),
   modifyTask: (id: string, content: string) =>
     ipcRenderer.invoke("modifyTask", id, content),
   completeTask: (id: string) => ipcRenderer.invoke("completeTask", id),
