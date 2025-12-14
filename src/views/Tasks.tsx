@@ -16,7 +16,14 @@ export function Tasks() {
       content: content,
       modified: new Date().toISOString(),
     };
-    const tasks = await window.tasks.addTask(newTask);
+
+    setTaskList((prev) => [...prev, newTask]);
+
+    try {
+      await window.tasks.addTask(newTask);
+    } catch (error) {
+      setTaskList((prev) => prev.filter((task) => task.id !== newTask.id));
+    }
   }
 
   async function handleModifyTask(id: string, content: string) {
@@ -28,7 +35,13 @@ export function Tasks() {
   }
 
   async function handleRemoveTask(id: string) {
-    const tasks = await window.tasks.deleteTask(id);
+    const deletedTask: task = taskList.filter((task) => task.id === id)[0];
+    setTaskList((prev) => prev.filter((task) => task.id !== id));
+    try {
+      await window.tasks.deleteTask(id);
+    } catch (error) {
+      setTaskList((prev) => [...prev, deletedTask]);
+    }
   }
 
   useEffect(() => {
