@@ -71,8 +71,8 @@ ipcMain.handle("getTasks", () => {
 
 ipcMain.handle(
   "addTask",
-  async (event: IpcMainInvokeEvent, content: string) => {
-    if (addTask(content)) {
+  async (event: IpcMainInvokeEvent, id: string, content: string) => {
+    if (addTask(id, content)) {
       return getTasks();
     }
   },
