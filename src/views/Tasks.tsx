@@ -1,3 +1,4 @@
+import { StartLoggingOptions } from "electron/renderer";
 import { useEffect, useState } from "react";
 import type { task } from "../types/data.types";
 
@@ -13,15 +14,15 @@ export function Tasks() {
     const tasks = await window.tasks.addTask(content);
   }
 
-  async function handleModifyTask(id: number, content: string) {
+  async function handleModifyTask(id: string, content: string) {
     const tasks = await window.tasks.modifyTask(id, content);
   }
 
-  async function handleCompleteTask(id: number) {
+  async function handleCompleteTask(id: string) {
     const tasks = await window.tasks.completeTask(id);
   }
 
-  async function handleRemoveTask(id: number) {
+  async function handleRemoveTask(id: string) {
     const tasks = await window.tasks.deleteTask(id);
   }
 

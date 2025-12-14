@@ -7,7 +7,7 @@ import { dbLoc, db } from "../index";
  */
 export function createDB() {
   const taskDBQuery = `CREATE TABLE tasks (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT PRIMARY KEY,
     content TEXT NOT NULL,
     modified TEXT NOT NULL,
     completed TEXT,
@@ -54,7 +54,7 @@ export function addTask(content: string): boolean {
  * @param content New content for the task.
  * @returns Success boolean.
  */
-export function modifyTask(id: number, content: string): boolean {
+export function modifyTask(id: string, content: string): boolean {
   const stmt = db.prepare(
     "UPDATE tasks SET content = ?, modified = ? WHERE id = ?;",
   );
@@ -74,7 +74,7 @@ export function modifyTask(id: number, content: string): boolean {
  * @param id The task id.
  * @returns Success boolean.
  */
-export function completeTask(id: number): boolean {
+export function completeTask(id: string): boolean {
   const stmt = db.prepare("UPDATE tasks SET completed = ? WHERE id = ?;");
   const now = new Date().toISOString();
 
@@ -92,7 +92,7 @@ export function completeTask(id: number): boolean {
  * @param id ID of the date to delete.
  * @returns Success boolean.
  */
-export function deleteTask(id: number): boolean {
+export function deleteTask(id: string): boolean {
   const stmt = db.prepare("UPDATE tasks SET deleted = ? WHERE id = ?;");
   const now = new Date().toISOString();
 
