@@ -1,7 +1,9 @@
 :root {
   --text: white;
-  --muted: rgba(255, 255, 255, 0.1);
-  --musted-hover: rgba(255, 255, 255, 0.5);
+  --muted: rgba(255, 255, 255, 0.05);
+  --muted-hover: rgba(255, 255, 255, 0.5);
+
+  --transition: all 0.3s ease;
 }
 
 body {
@@ -11,6 +13,20 @@ body {
   margin: auto;
   background-color: black;
   color: var(--text);
+}
+
+/* UTILITIES */
+.ui-button {
+  background: none;
+  border: none;
+  font-size: 3rem;
+  color: var(--muted);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.ui-button:hover {
+  color: var(--muted-hover);
 }
 
 /* TITLEBAR */
@@ -32,9 +48,46 @@ body {
   border: none;
   height: 25px;
   width: 25px;
-  transition: all 0.3s ease;
+  transition: var(--transition);
 }
 
 .titlebar__buttons > button:hover {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* TASK LIST */
+.add-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+  width: 90%;
+  padding: 0 20px;
+}
+
+.add-item-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-grow: 1;
+  gap: 1.5rem;
+}
+
+.add-item-field > input {
+  flex-grow: 1;
+  background-color: rgba(0, 0, 0, 0);
+  color: var(--text);
+  font-size: 1.5rem;
+  height: 3rem;
+  padding: 0 1rem;
+  border: 2px solid var(--muted);
+  transition: var(--transition);
+}
+
+.add-item-field > input:hover {
+  border: 2px solid var(--muted-hover);
+}
+
+.add-item-field > input:active {
+  border: 2px solid var(--muted-hover);
 }
