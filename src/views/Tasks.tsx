@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import type { task } from "../types/data.types";
+import { MdAdd, MdSend } from "react-icons/md";
+import type { task, newItem } from "../types/data.types";
 
 export function Tasks() {
   const [taskList, setTaskList] = useState<task[]>();
+  const [newItemInput, setNewItemInput] = useState<newItem>({
+    id: "new",
+    content: "",
+  });
 
   async function handleGetAllTasks() {
     const tasks = await window.tasks.getTasks();
@@ -76,9 +81,44 @@ export function Tasks() {
     }
   }
 
+  function handleUpdateNewItem(event: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target;
+
+    setNewItemInput((prev) => ({
+      ...prev,
+      content: value,
+    }));
+  }
+
+  function handleSendButton() {
+    if (newItemInput.content.length > 0) {
+      if (newItemInput.id === "new") {
+        handleAddTask(newItemInput.content);
+      } else {
+        handleModifyTask(newItemInput.id, newItemInput.content);
+      }
+    }
+  }
+
   useEffect(() => {
     handleGetAllTasks();
   }, []);
 
-  return <></>;
+  return (
+    <>
+      <div className="add-item">
+        <span className="add-item-field">
+          <input
+            type="text"
+            className=""
+            value={newItemInput.content}
+            onChange={handleUpdateNewItem}
+          />
+          <button className="ui-button" onClick={handleSendButton}>
+            {newItemInput.id === "new" ? <MdAdd /> : <MdSend />}
+          </button>
+        </span>
+      </div>
+    </>
+  );
 }

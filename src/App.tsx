@@ -6,7 +6,6 @@ export function App() {
     <>
       <Titlebar />
       <Tasks />
-      This is a test.
     </>
   );
 }

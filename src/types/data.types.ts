@@ -5,3 +5,8 @@ export interface task {
   completed?: string;
   deleted?: string;
 }
+
+export interface newItem {
+  id: "new" | string;
+  content: string;
+}
