@@ -17,8 +17,9 @@ contextBridge.exposeInMainWorld("app", {
 contextBridge.exposeInMainWorld("tasks", {
   getTasks: () => ipcRenderer.invoke("getTasks"),
   addTask: (task: task) => ipcRenderer.invoke("addTask", task),
-  modifyTask: (id: string, content: string) =>
-    ipcRenderer.invoke("modifyTask", id, content),
-  completeTask: (id: string) => ipcRenderer.invoke("completeTask", id),
+  modifyTask: (id: string, content: string, modified: string) =>
+    ipcRenderer.invoke("modifyTask", id, content, modified),
+  completeTask: (id: string, completed: string) =>
+    ipcRenderer.invoke("completeTask", id, completed),
   deleteTask: (id: string) => ipcRenderer.invoke("deleteTask", id),
 });

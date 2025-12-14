@@ -8,7 +8,11 @@ export interface App {
 export interface Tasks {
   getTasks: () => Promise<task[]>;
   addTask: (task: task) => Promise<task[]>;
-  modifyTask: (id: string, content: string) => Promise<task[]>;
-  completeTask: (id: string) => Promise<task[]>;
+  modifyTask: (
+    id: string,
+    content: string,
+    modified: string,
+  ) => Promise<task[]>;
+  completeTask: (id: string, completed: string) => Promise<task[]>;
   deleteTask: (id: string) => Promise<task[]>;
 }

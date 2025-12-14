@@ -78,8 +78,13 @@ ipcMain.handle("addTask", async (event: IpcMainInvokeEvent, task: task) => {
 
 ipcMain.handle(
   "modifyTask",
-  async (event: IpcMainInvokeEvent, id: string, content: string) => {
-    if (modifyTask(id, content)) {
+  async (
+    event: IpcMainInvokeEvent,
+    id: string,
+    content: string,
+    modified: string,
+  ) => {
+    if (modifyTask(id, content, modified)) {
       return getTasks();
     }
   },
@@ -87,8 +92,8 @@ ipcMain.handle(
 
 ipcMain.handle(
   "completeTask",
-  async (event: IpcMainInvokeEvent, id: string) => {
-    if (completeTask(id)) {
+  async (event: IpcMainInvokeEvent, id: string, completed: string) => {
+    if (completeTask(id, completed)) {
       return getTasks();
     }
   },

@@ -53,13 +53,16 @@ export function addTask(task: task): boolean {
  * @param content New content for the task.
  * @returns Success boolean.
  */
-export function modifyTask(id: string, content: string): boolean {
+export function modifyTask(
+  id: string,
+  content: string,
+  modified: string,
+): boolean {
   const stmt = db.prepare(
     "UPDATE tasks SET content = ?, modified = ? WHERE id = ?;",
   );
-  const now = new Date().toISOString();
 
-  const result = stmt.run(content, now, id);
+  const result = stmt.run(content, modified, id);
 
   if (result.changes > 0) {
     return true;
@@ -73,11 +76,10 @@ export function modifyTask(id: string, content: string): boolean {
  * @param id The task id.
  * @returns Success boolean.
  */
-export function completeTask(id: string): boolean {
+export function completeTask(id: string, completed: string): boolean {
   const stmt = db.prepare("UPDATE tasks SET completed = ? WHERE id = ?;");
-  const now = new Date().toISOString();
 
-  const result = stmt.run(now, id);
+  const result = stmt.run(completed, id);
 
   if (result.changes > 0) {
     return true;
