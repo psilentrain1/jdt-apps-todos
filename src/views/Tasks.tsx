@@ -10,19 +10,6 @@ export function Tasks() {
     content: "",
   });
 
-  const sampleTasks: task[] = [
-    {
-      id: "somelonguuid",
-      content: "Do laundry",
-      modified: "2025 12 14 00:00",
-    },
-    {
-      id: "anotherlonguuid",
-      content: "Finish this app",
-      modified: "2025 12 14 01:02",
-    },
-  ];
-
   async function handleGetAllTasks() {
     const tasks = await window.tasks.getTasks();
     setTaskList(tasks);
@@ -121,7 +108,7 @@ export function Tasks() {
     <>
       <div className="task-page">
         <ul className="task-list">
-          {sampleTasks.map((item) => (
+          {taskList.map((item) => (
             <li className="task">
               <span className="task__name">{item.content}</span>
               <div className="task__buttons">
