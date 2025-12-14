@@ -47,7 +47,23 @@ export function Tasks() {
   }
 
   async function handleCompleteTask(id: string) {
-    const tasks = await window.tasks.completeTask(id);
+    const originalList: task[] = taskList;
+    const completed = new Date().toISOString();
+
+    const updatedTasks = taskList.map((task) => {
+      if (task.id === id) {
+        return { ...task, completed: completed };
+      }
+      return task;
+    });
+
+    setTaskList(updatedTasks);
+
+    try {
+      await window.tasks.completeTask(id, completed);
+    } catch (error) {
+      setTaskList(originalList);
+    }
   }
 
   async function handleRemoveTask(id: string) {
