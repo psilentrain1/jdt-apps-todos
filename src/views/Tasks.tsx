@@ -59,8 +59,10 @@ export function Tasks() {
 
     try {
       await window.tasks.modifyTask(id, content, modified);
+      setNewItemInput({ id: "new", content: "" });
     } catch (error) {
       setTaskList(originalList);
+      setNewItemInput({ id: id, content: content });
     }
   }
 
@@ -103,6 +105,10 @@ export function Tasks() {
     }));
   }
 
+  function handleEditButton(id: string, content: string) {
+    setNewItemInput({ id: id, content: content });
+  }
+
   function handleSendButton() {
     if (newItemInput.content.length > 0) {
       if (newItemInput.id === "new") {
@@ -135,7 +141,10 @@ export function Tasks() {
                   >
                     <MdCheck />
                   </button>
-                  <button className="ui-button">
+                  <button
+                    className="ui-button"
+                    onClick={() => handleEditButton(item.id, item.content)}
+                  >
                     <MdCreate />
                   </button>
                   <button
