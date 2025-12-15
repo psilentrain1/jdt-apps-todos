@@ -24,7 +24,7 @@ export function createDB() {
 export function getTasks(): task[] {
   const stmt = db.prepare("SELECT * FROM tasks WHERE deleted IS NULL;");
 
-  const result = stmt.get() as task[];
+  const result = stmt.all() as task[];
   return result;
 }
 
