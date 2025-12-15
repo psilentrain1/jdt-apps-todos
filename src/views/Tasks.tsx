@@ -4,7 +4,7 @@ import { MdAdd, MdCheck, MdCreate, MdDelete, MdSend } from "react-icons/md";
 import type { task, newItem } from "../types/data.types";
 
 export function Tasks() {
-  const [taskList, setTaskList] = useState<task[]>();
+  const [taskList, setTaskList] = useState<task[]>([]);
   const [newItemInput, setNewItemInput] = useState<newItem>({
     id: "new",
     content: "",
@@ -21,14 +21,27 @@ export function Tasks() {
       content: content,
       modified: new Date().toISOString(),
     };
+    console.log(newTask);
 
-    setTaskList((prev) => [...prev, newTask]);
+    console.log("taskList", taskList);
 
-    try {
-      await window.tasks.addTask(newTask);
-    } catch (error) {
-      setTaskList((prev) => prev.filter((task) => task.id !== newTask.id));
-    }
+    // if (taskList) {
+    //   console.log("taskList exists");
+    //   // setTaskList((prev) => [...(prev || []), newTask]);
+    //   console.log("taskList", taskList);
+    // } else {
+    //   // const newArray = [];
+    //   // newArray.push(newTask);
+    //   // setTaskList(newArray);
+    //   console.log("taskList didn't exist");
+    // }
+
+    // try {
+    //   await window.tasks.addTask(newTask);
+    // } catch (error) {
+    //   console.log("There was an error in the catch block");
+    //   // setTaskList((prev) => prev.filter((task) => task.id !== newTask.id));
+    // }
   }
 
   async function handleModifyTask(id: string, content: string) {
@@ -108,22 +121,30 @@ export function Tasks() {
     <>
       <div className="task-page">
         <ul className="task-list">
-          {taskList.map((item) => (
-            <li className="task">
-              <span className="task__name">{item.content}</span>
-              <div className="task__buttons">
-                <button className="ui-button">
-                  <MdCheck />
-                </button>
-                <button className="ui-button">
-                  <MdCreate />
-                </button>
-                <button className="ui-button">
-                  <MdDelete />
-                </button>
-              </div>
-            </li>
-          ))}
+          {taskList &&
+            taskList.length > 0 &&
+            taskList.map((item) => (
+              <li className="task">
+                <span className="task__name">{item.content}</span>
+                <div className="task__buttons">
+                  <button
+                    className="ui-button"
+                    onClick={() => handleCompleteTask(item.id)}
+                  >
+                    <MdCheck />
+                  </button>
+                  <button className="ui-button">
+                    <MdCreate />
+                  </button>
+                  <button
+                    className="ui-button"
+                    onClick={() => handleRemoveTask(item.id)}
+                  >
+                    <MdDelete />
+                  </button>
+                </div>
+              </li>
+            ))}
         </ul>
         <div className="add-item">
           <span className="add-item-field">
