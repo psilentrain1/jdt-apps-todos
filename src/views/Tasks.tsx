@@ -125,7 +125,9 @@ export function Tasks() {
             taskList.length > 0 &&
             taskList.map((item) => (
               <li className="task">
-                <span className="task__name">{item.content}</span>
+                <span className={`task__name ${item.completed && "completed"}`}>
+                  {item.content}
+                </span>
                 <div className="task__buttons">
                   <button
                     className="ui-button"

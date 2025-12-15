@@ -1,6 +1,6 @@
 :root {
   --text: white;
-  --text-dim: rgba(255, 255, 255, 0.5);
+  --text-dim: rgba(255, 255, 255, 0.2);
   --muted: rgba(255, 255, 255, 0.05);
   --muted-hover: rgba(255, 255, 255, 0.5);
 
@@ -77,10 +77,16 @@ body {
 .task__name {
   font-family: "Comic Sans MS", sans-serif;
   font-size: 3rem;
+  transition: var(--transition);
 }
 
 .task__name::before {
   content: "-";
+}
+
+.completed {
+  color: var(--text-dim);
+  text-decoration: line-through;
 }
 
 .add-item {
