@@ -21,27 +21,16 @@ export function Tasks() {
       content: content,
       modified: new Date().toISOString(),
     };
-    console.log(newTask);
 
-    console.log("taskList", taskList);
+    setTaskList((prev) => [...prev, newTask]);
 
-    // if (taskList) {
-    //   console.log("taskList exists");
-    //   // setTaskList((prev) => [...(prev || []), newTask]);
-    //   console.log("taskList", taskList);
-    // } else {
-    //   // const newArray = [];
-    //   // newArray.push(newTask);
-    //   // setTaskList(newArray);
-    //   console.log("taskList didn't exist");
-    // }
-
-    // try {
-    //   await window.tasks.addTask(newTask);
-    // } catch (error) {
-    //   console.log("There was an error in the catch block");
-    //   // setTaskList((prev) => prev.filter((task) => task.id !== newTask.id));
-    // }
+    try {
+      await window.tasks.addTask(newTask);
+      setNewItemInput({ id: "new", content: "" });
+    } catch (error) {
+      setTaskList((prev) => prev.filter((task) => task.id !== newTask.id));
+      setNewItemInput({ id: newTask.id, content: newTask.content });
+    }
   }
 
   async function handleModifyTask(id: string, content: string) {
