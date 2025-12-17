@@ -105,3 +105,30 @@ export function deleteTask(id: string): boolean {
 
   return false;
 }
+
+export function cleanupTasks() {
+  const daysToKeep = 7;
+
+  const getStmt = db.prepare("SELECT * FROM tasks WHERE deleted IS NOT NULL;");
+  const delStmt = db.prepare("DELETE FROM tasks WHERE id = ?;");
+
+  const deletedTasks = getStmt.all() as task[];
+
+  function readyToPurge(date: string, purgeDays: number = daysToKeep) {
+    const currentDate = new Date();
+    const taskDate = new Date(date);
+    const daysAgoTimestamp =
+      currentDate.getTime() - purgeDays * 24 * 60 * 60 * 1000;
+    return taskDate.getTime() < daysAgoTimestamp;
+  }
+
+  for (let i = 0; i < deletedTasks.length; i++) {
+    if (deletedTasks[i].deleted && readyToPurge(deletedTasks[i].deleted)) {
+      try {
+        delStmt.run(deletedTasks[i].id);
+      } catch (error) {
+        console.log("Purge task failed: ", error);
+      }
+    }
+  }
+}
