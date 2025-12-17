@@ -60,8 +60,11 @@ export function Tasks() {
     const completed = new Date().toISOString();
 
     const updatedTasks = taskList.map((task) => {
-      if (task.id === id) {
+      if (task.id === id && !task.completed) {
         return { ...task, completed: completed };
+      }
+      if (task.id === id && task.completed) {
+        return { ...task, completed: "" };
       }
       return task;
     });
@@ -105,6 +108,13 @@ export function Tasks() {
       } else {
         handleModifyTask(newItemInput.id, newItemInput.content);
       }
+    }
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSendButton();
     }
   }
 
@@ -153,6 +163,7 @@ export function Tasks() {
               className=""
               value={newItemInput.content}
               onChange={handleUpdateNewItem}
+              onKeyDown={handleKeyDown}
             />
             <button className="ui-button" onClick={handleSendButton}>
               {newItemInput.id === "new" ? <MdAdd /> : <MdSend />}
