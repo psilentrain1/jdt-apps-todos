@@ -16,6 +16,8 @@ import { task } from "./types/data.types";
 // whether you're running in development or production).
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
+declare const SETTINGS_WINDOW_WEBPACK_ENTRY: string;
+declare const SETTINGS_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 // Handle database location
 // TODO: move this to DOTENV
@@ -50,6 +52,20 @@ const createWindow = (): void => {
 
   mainWindow.maximize();
   mainWindow.show();
+};
+
+const createSettingsWindow = (): void => {
+  const settingsWindow = new BrowserWindow({
+    height: 600,
+    width: 400,
+    webPreferences: {
+      preload: SETTINGS_WINDOW_PRELOAD_WEBPACK_ENTRY,
+    },
+  });
+
+  settingsWindow.loadURL(SETTINGS_WINDOW_WEBPACK_ENTRY);
+
+  settingsWindow.show();
 };
 
 // APP Controls
