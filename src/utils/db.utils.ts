@@ -14,7 +14,16 @@ export function createDB() {
     deleted TEXT
     );`;
 
+  const settingsDBQuery = `CREATE TABLE settings (
+      id INTEGER PRIMARY KEY AUTOINCREMEMNT,
+      name TEXT NOT NULL,
+      value TEXT
+    );`;
+
   db.prepare(taskDBQuery).run();
+  db.prepare(settingsDBQuery).run();
+
+  // TODO: Initialize settings DB with default values
 }
 
 /**

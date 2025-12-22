@@ -10,3 +10,9 @@ export interface newItem {
   id: "new" | string;
   content: string;
 }
+
+export interface setting {
+  id: number;
+  name: string;
+  value: string;
+}
