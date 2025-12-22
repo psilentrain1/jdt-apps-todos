@@ -38,8 +38,8 @@ const config: ForgeConfig = {
             },
           },
           {
-            html: "./src/views/settings.html",
-            js: "./src/views/Settings.tsx",
+            html: "./src/views/settings/settings.html",
+            js: "./src/views/settings/Settings.tsx",
             name: "settings_window",
             preload: {
               js: "./src/preload.ts",
