@@ -6,7 +6,7 @@ import { dbLoc, db } from "../index";
  * and initializes the necessary tables and default values.
  */
 export function createDB() {
-  const taskDBQuery = `CREATE TABLE tasks (
+  const taskTableQuery = `CREATE TABLE tasks (
     id TEXT PRIMARY KEY,
     content TEXT NOT NULL,
     modified TEXT NOT NULL,
@@ -14,14 +14,19 @@ export function createDB() {
     deleted TEXT
     );`;
 
-  const settingsDBQuery = `CREATE TABLE settings (
+  const settingsTableQuery = `CREATE TABLE settings (
       id INTEGER PRIMARY KEY AUTOINCREMEMNT,
       name TEXT NOT NULL,
       value TEXT
     );`;
 
-  db.prepare(taskDBQuery).run();
-  db.prepare(settingsDBQuery).run();
+  const settingsInitQuery = `INSERT INTO settings (name, value) VALUES ('sleep_hours', 'false');
+    INSERT INTO settings (name, value) values ('sleep_time_from', '');
+    INSERT INTO settings (name, value) values ('sleep_time_to', '');`;
+
+  db.prepare(taskTableQuery).run();
+  db.prepare(settingsTableQuery).run();
+  db.prepare(settingsInitQuery).run();
 
   // TODO: Initialize settings DB with default values
 }
