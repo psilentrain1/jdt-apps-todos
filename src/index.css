@@ -124,3 +124,31 @@ body {
 .add-item-field > input:active {
   border: 2px solid var(--muted-hover);
 }
+
+/* SETTINGS */
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+}
+
+.setting__list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+}
+
+.setting__line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.setting__hide {
+  display: none;
+}
+
+.setting__show {
+  display: block;
+}

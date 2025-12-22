@@ -16,3 +16,5 @@ export interface setting {
   name: string;
   value: string;
 }
+
+export type settingState = Record<string, string>;
