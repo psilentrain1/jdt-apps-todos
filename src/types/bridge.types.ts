@@ -3,6 +3,7 @@ import { task } from "./data.types";
 export interface App {
   appClose: () => Promise<void>;
   appMinimize: () => Promise<void>;
+  appOpenSettings: () => Promise<void>;
 }
 
 export interface Tasks {

@@ -83,6 +83,10 @@ ipcMain.handle("appMinimize", () => {
   }
 });
 
+ipcMain.handle("appOpenSettings", () => {
+  createSettingsWindow();
+});
+
 // TASK Controls
 ipcMain.handle("getTasks", () => {
   const tasks = getTasks();

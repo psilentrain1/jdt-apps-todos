@@ -108,7 +108,9 @@ export function Tasks() {
     setNewItemInput({ id: id, content: content });
   }
 
-  function handleSettingsButton() {}
+  function handleSettingsButton() {
+    window.app.appOpenSettings();
+  }
 
   function handleSendButton() {
     if (newItemInput.content.length > 0) {

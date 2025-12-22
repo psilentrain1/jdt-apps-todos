@@ -12,6 +12,7 @@ declare global {
 contextBridge.exposeInMainWorld("app", {
   appClose: () => ipcRenderer.invoke("appClose"),
   appMinimize: () => ipcRenderer.invoke("appMinimize"),
+  appOpenSettings: () => ipcRenderer.invoke("appOpenSettings"),
 });
 
 contextBridge.exposeInMainWorld("tasks", {
