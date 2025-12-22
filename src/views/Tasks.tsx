@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { MdAdd, MdCheck, MdCreate, MdDelete, MdSend } from "react-icons/md";
+import {
+  MdAdd,
+  MdCheck,
+  MdCreate,
+  MdDelete,
+  MdSend,
+  MdSettings,
+} from "react-icons/md";
 import type { task, newItem } from "../types/data.types";
 
 export function Tasks() {
@@ -101,6 +108,8 @@ export function Tasks() {
     setNewItemInput({ id: id, content: content });
   }
 
+  function handleSettingsButton() {}
+
   function handleSendButton() {
     if (newItemInput.content.length > 0) {
       if (newItemInput.id === "new") {
@@ -167,6 +176,11 @@ export function Tasks() {
             />
             <button className="ui-button" onClick={handleSendButton}>
               {newItemInput.id === "new" ? <MdAdd /> : <MdSend />}
+            </button>
+          </span>
+          <span>
+            <button className="ui-button" onClick={handleSettingsButton}>
+              <MdSettings />
             </button>
           </span>
         </div>
