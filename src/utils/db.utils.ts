@@ -1,4 +1,4 @@
-import { task } from "../types/data.types";
+import { task, setting } from "../types/data.types";
 import { dbLoc, db } from "../index";
 
 /**
@@ -115,6 +115,9 @@ export function deleteTask(id: string): boolean {
   return false;
 }
 
+/**
+ * Clean up the database. Currently just purges deleted records older than `daysToKeep` days.
+ */
 export function cleanupTasks() {
   const daysToKeep = 7;
 
@@ -140,4 +143,36 @@ export function cleanupTasks() {
       }
     }
   }
+}
+
+// SETTINGS
+
+/**
+ * Gets all settings from the database.
+ * @returns Returns a list of settings
+ */
+export function getDBSettings(): setting[] {
+  const stmt = db.prepare("SELECT * FROM settings;");
+
+  const result = stmt.all() as setting[];
+
+  return result;
+}
+
+/**
+ * Updates one setting in the database.
+ * @param name Name of the setting to modify.
+ * @param value New value for the setting
+ * @returns Returns success boolean.
+ */
+export function updateDBSetting(name: string, value: string): boolean {
+  const stmt = db.prepare("UPDATE settings SET value = ? WHERE name = ?;");
+
+  const result = stmt.run(value, name);
+
+  if (result.changes > 0) {
+    return true;
+  }
+
+  return false;
 }

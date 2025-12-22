@@ -1,11 +1,12 @@
 import { contextBridge, ipcRenderer } from "electron";
-import { App, Tasks } from "./types/bridge.types";
+import { App, Settings, Tasks } from "./types/bridge.types";
 import { task } from "./types/data.types";
 
 declare global {
   interface Window {
     app: App;
     tasks: Tasks;
+    settings: Settings;
   }
 }
 
@@ -23,4 +24,10 @@ contextBridge.exposeInMainWorld("tasks", {
   completeTask: (id: string, completed: string) =>
     ipcRenderer.invoke("completeTask", id, completed),
   deleteTask: (id: string) => ipcRenderer.invoke("deleteTask", id),
+});
+
+contextBridge.exposeInMainWorld("settings", {
+  getSettings: () => ipcRenderer.invoke("getSettings"),
+  updateSetting: (name: string, value: string) =>
+    ipcRenderer.invoke("updateSetting", name, value),
 });

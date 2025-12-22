@@ -1,9 +1,14 @@
-import { task } from "./data.types";
+import { setting, task } from "./data.types";
 
 export interface App {
   appClose: () => Promise<void>;
   appMinimize: () => Promise<void>;
   appOpenSettings: () => Promise<void>;
+}
+
+export interface Settings {
+  getSettings: () => Promise<setting[]>;
+  updateSetting: (name: string, value: string) => Promise<setting[]>;
 }
 
 export interface Tasks {
